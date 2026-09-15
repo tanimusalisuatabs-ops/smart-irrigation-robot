@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Irrigation Robot</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- LOGIN -->
+
+<div id="loginPage" class="login-page">
+
+    <div class="login-box">
+
+        <div class="login-icon">
+            🤖
+        </div>
+
+        <h1>SMART IRRIGATION ROBOT</h1>
+
+        <p>Farm Management System</p>
+
+        <input
+            type="text"
+            id="username"
+            placeholder="Username"
+        >
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Password"
+        >
+
+        <button
+            class="login-button"
+            onclick="login()"
+        >
+            LOGIN
+        </button>
+
+        <p id="loginMessage"></p>
+
+    </div>
+
+</div>
+
+
+<!-- DASHBOARD -->
+
+<div id="dashboardPage" class="hidden">
+
+    <header>
+
+        <h1>🤖 SMART IRRIGATION ROBOT</h1>
+
+        <p>Smart Farm Monitoring and Irrigation System</p>
+
+    </header>
+
+
+    <!-- NAVIGATION -->
+
+    <nav class="top-navigation">
+
+        <button onclick="goToSection('dashboard')">
+            🏠 Dashboard
+        </button>
+
+        <button onclick="goToSection('soilSection')">
+            🌱 Soil
+        </button>
+
+        <button onclick="goToSection('waterSection')">
+            💧 Water
+        </button>
+
+        <button onclick="goToSection('temperatureSection')">
+            🌡️ Temperature
+        </button>
+
+        <button onclick="goToSection('pumpSection')">
+            🚿 Pump
+        </button>
+
+        <button onclick="goToSection('robotSection')">
+            🤖 Robots
+        </button>
+
+        <button onclick="goToSection('farmSection')">
+            🌾 Farm
+        </button>
+
+        <button onclick="goToSection('alertSection')">
+            🚨 Alerts
+        </button>
+
+        <button
+            class="nav-logout"
+            onclick="logout()"
+        >
+            🚪 Logout
+        </button>
+
+    </nav>
+
+
+    <!-- STATUS DASHBOARD -->
+
+    <main id="dashboard" class="dashboard">
+
+        <h2>System Dashboard</h2>
+
+        <div class="status-grid">
+
+            <div class="status-card">
+                <h3>🌱 Soil Moisture</h3>
+                <strong id="soilMoisture">50%</strong>
+                <p id="soilCondition">Normal</p>
+            </div>
+
+            <div class="status-card">
+                <h3>💧 Water Level</h3>
+                <strong id="waterLevel">80%</strong>
+            </div>
+
+            <div class="status-card">
+                <h3>🌡️ Temperature</h3>
+                <strong id="temperature">25°C</strong>
+            </div>
+
+            <div class="status-card">
+                <h3>🔋 Battery</h3>
+                <strong id="battery">100%</strong>
+            </div>
+
+            <div class="status-card">
+                <h3>🚿 Pump</h3>
+                <strong id="pumpStatus">OFF</strong>
+            </div>
+
+            <div class="status-card">
+                <h3>⚙️ Automatic Irrigation</h3>
+                <strong id="automaticStatus">OFF</strong>
+            </div>
+
+        </div>
+
+
+        <!-- SOIL -->
+
+        <section
+            id="soilSection"
+            class="feature-card"
+        >
+
+            <h2>🌱 Soil Moisture Control</h2>
+
+            <div class="display-value">
+
+                <strong id="soilMoistureDisplay">
+                    50%
+                </strong>
+
+                <span id="soilConditionDisplay">
+                    Normal
+                </span>
+
+            </div>
+
+            <div class="progress-bar">
+
+                <div
+                    id="moistureFill"
+                    class="progress-fill"
+                    style="width:50%"
+                ></div>
+
+            </div>
+
+            <div class="button-group">
+
+                <button onclick="selectMoisture('Very Dry',10)">
+                    Very Dry 10%
+                </button>
+
+                <button onclick="selectMoisture('Dry',25)">
+                    Dry 25%
+                </button>
+
+                <button onclick="selectMoisture('Normal',50)">
+                    Normal 50%
+                </button>
+
+                <button onclick="selectMoisture('Wet',75)">
+                    Wet 75%
+                </button>
+
+                <button onclick="selectMoisture('Very Wet',95)">
+                    Very Wet 95%
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- WATER -->
+
+        <section
+            id="waterSection"
+            class="feature-card"
+        >
+
+            <h2>💧 Water Tank</h2>
+
+            <div class="water-tank">
+
+                <div
+                    id="tankWater"
+                    class="tank-water"
+                    style="height:80%"
+                ></div>
+
+            </div>
+
+            <h3 id="waterLevelDisplay">
+                80%
+            </h3>
+
+            <div class="button-group">
+
+                <button onclick="selectWaterLevel(20)">
+                    20%
+                </button>
+
+                <button onclick="selectWaterLevel(40)">
+                    40%
+                </button>
+
+                <button onclick="selectWaterLevel(60)">
+                    60%
+                </button>
+
+                <button onclick="selectWaterLevel(80)">
+                    80%
+                </button>
+
+                <button onclick="selectWaterLevel(100)">
+                    100%
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- TEMPERATURE -->
+
+        <section
+            id="temperatureSection"
+            class="feature-card"
+        >
+
+            <h2>🌡️ Temperature</h2>
+
+            <h1 id="temperatureDisplay">
+                25°C
+            </h1>
+
+            <div class="button-group">
+
+                <button onclick="selectTemperature(15)">
+                    15°C
+                </button>
+
+                <button onclick="selectTemperature(20)">
+                    20°C
+                </button>
+
+                <button onclick="selectTemperature(25)">
+                    25°C
+                </button>
+
+                <button onclick="selectTemperature(30)">
+                    30°C
+                </button>
+
+                <button onclick="selectTemperature(35)">
+                    35°C
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- PUMP -->
+
+        <section
+            id="pumpSection"
+            class="feature-card"
+        >
+
+            <h2>🚿 Water Pump</h2>
+
+            <div
+                id="pumpIndicator"
+                class="indicator off"
+            >
+                OFF
+            </div>
+
+            <div class="button-group">
+
+                <button
+                    class="green-button"
+                    onclick="controlPump('on')"
+                >
+                    PUMP ON
+                </button>
+
+                <button
+                    class="red-button"
+                    onclick="controlPump('off')"
+                >
+                    PUMP OFF
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- AUTOMATIC -->
+
+        <section class="feature-card">
+
+            <h2>⚙️ Automatic Irrigation</h2>
+
+            <div
+                id="automaticIndicator"
+                class="indicator off"
+            >
+                OFF
+            </div>
+
+            <div class="button-group">
+
+                <button
+                    class="green-button"
+                    onclick="setAutomaticMode(true)"
+                >
+                    AUTOMATIC ON
+                </button>
+
+                <button
+                    class="red-button"
+                    onclick="setAutomaticMode(false)"
+                >
+                    AUTOMATIC OFF
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ROBOTS -->
+
+        <section
+            id="robotSection"
+            class="feature-card"
+        >
+
+            <h2>🤖 Farm Robots</h2>
+
+            <p>
+                Select the robot you want to operate.
+            </p>
+
+            <div class="robot-grid">
+
+                <button onclick="selectFarmRobot(1)">
+                    🌱<br>
+                    Soil Monitoring Robot
+                </button>
+
+                <button onclick="selectFarmRobot(2)">
+                    💧<br>
+                    Irrigation Robot
+                </button>
+
+                <button onclick="selectFarmRobot(3)">
+                    🌾<br>
+                    Crop Monitoring Robot
+                </button>
+
+                <button onclick="selectFarmRobot(4)">
+                    🧪<br>
+                    Fertilizer Robot
+                </button>
+
+                <button onclick="selectFarmRobot(5)">
+                    🚜<br>
+                    Farm Transport Robot
+                </button>
+
+            </div>
+
+            <div class="selected-robot">
+
+                Selected Robot:
+
+                <strong id="selectedRobotName">
+                    None
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- ROBOT WORK -->
+
+        <section class="feature-card">
+
+            <h2>⚙️ Robot Work Control</h2>
+
+            <div class="work-status">
+
+                <strong id="robotWorkStatus">
+                    STOPPED
+                </strong>
+
+                <p id="robotTask">
+                    Waiting for instruction
+                </p>
+
+            </div>
+
+            <div class="button-group">
+
+                <button
+                    class="work-button"
+                    onclick="startRobotWork()"
+                >
+                    ▶ START WORK
+                </button>
+
+                <button
+                    class="pause-button"
+                    onclick="pauseRobotWork()"
+                >
+                    ⏸ PAUSE
+                </button>
+
+                <button
+                    class="red-button"
+                    onclick="stopRobotWork()"
+                >
+                    ⛔ STOP
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- FARM -->
+
+        <section
+            id="farmSection"
+            class="feature-card"
+        >
+
+            <h2>🌾 Smart Farm Working Area</h2>
+
+            <p>
+                The robot works automatically through the farm rows.
+            </p>
+
+            <div class="farm">
+
+                <div class="farm-title">
+                    SMART FARM
+                </div>
+
+                <!-- CROPS -->
+
+                <div class="crop-row row-one">
+
+                    <span>🌱</span>
+                    <span>🌱</span>
+                    <span>🌱</span>
+                    <span>🌱</span>
+                    <span>🌱</span>
+                    <span>🌱</span>
+
+                </div>
+
+                <div class="crop-row row-two">
+
+                    <span>🌿</span>
+                    <span>🌿</span>
+                    <span>🌿</span>
+                    <span>🌿</span>
+                    <span>🌿</span>
+                    <span>🌿</span>
+
+                </div>
+
+                <div class="crop-row row-three">
+
+                    <span>🌱</span>
+                    <span>🌱</span>
+                    <span>🌱</span>
+                    <span>🌱</span>
+                    <span>🌱</span>
+                    <span>🌱</span>
+
+                </div>
+
+
+                <!-- ROBOT -->
+
+                <div
+                    id="workingRobot"
+                    class="working-robot"
+                >
+
+                    <div class="robot-antenna">
+                    </div>
+
+                    <div class="robot-head">
+
+                        <div class="robot-eye"></div>
+
+                        <div class="robot-eye"></div>
+
+                    </div>
+
+                    <div class="robot-body">
+
+                        <div class="robot-screen">
+                            🤖
+                        </div>
+
+                    </div>
+
+                    <div class="robot-arm left-arm">
+                    </div>
+
+                    <div class="robot-arm right-arm">
+                    </div>
+
+                    <div class="robot-leg left-leg">
+                    </div>
+
+                    <div class="robot-leg right-leg">
+                    </div>
+
+                    <div
+                        id="waterDrops"
+                        class="water-drops"
+                    >
+                        💧💧💧
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="farm-status">
+
+                <strong>
+                    Robot:
+                </strong>
+
+                <span id="farmRobotStatus">
+                    STOPPED
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- ALERT -->
+
+        <section
+            id="alertSection"
+            class="feature-card"
+        >
+
+            <h2>🚨 System Alerts</h2>
+
+            <div
+                id="systemAlert"
+                class="system-alert"
+            >
+                System operating normally.
+            </div>
+
+            <div class="button-group">
+
+                <button
+                    class="alert-button"
+                    onclick="checkSystemAlert()"
+                >
+                    🔊 CHECK ALERT
+                </button>
+
+                <button
+                    class="test-alert-button"
+                    onclick="testAlertSound()"
+                >
+                    🔔 TEST SOUND
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        Smart Irrigation Robot © 2026
+
+    </footer>
+
+</div>
+
+
+<script src="app.js"></script>
+
+</body>
+
+</html>
